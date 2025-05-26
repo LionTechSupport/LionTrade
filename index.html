@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LionTrade - Connect Sri Lankan Buyers & Sellers</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset and Body Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc; /* Light background */
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+        }
+        /* Specific font for Sinhala text */
+        .sinhala-text {
+            font-family: 'Noto Serif Sinhala', serif;
+        }
+        /* Main content container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styling */
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); /* Blue gradient */
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1rem; /* Space from nav links */
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-grow: 1; /* Allow links to take available space */
+            justify-content: flex-end; /* Push links to the right */
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            padding: 0.5rem 0; /* Add padding for click area */
+        }
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        .lang-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem; /* Space from nav links */
+        }
+        .lang-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .lang-btn.active {
+            background: rgba(255,255,255,0.3);
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: #f59e0b; /* Orange */
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #d97706; /* Darker Orange */
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background: white;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #1e40af; /* Dark blue */
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .feature-card {
+            background: #f8fafc; /* Light gray */
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Subtle shadow */
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* More prominent shadow on hover */
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: #3b82f6; /* Blue */
+            margin-bottom: 1rem;
+        }
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e40af;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 4rem 0;
+            background: #f1f5f9; /* Lighter gray */
+        }
+        .demo-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: white;
+            color: #64748b; /* Slate gray */
+            border: 2px solid #e2e8f0; /* Light border */
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        .tab-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        .demo-content {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .demo-content.active {
+            display: block;
+        }
+
+        /* Listings Grid */
+        .listings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .listing-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .listing-card:hover {
+            transform: translateY(-5px); /* Lift effect */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Enhanced shadow */
+        }
+        .listing-image {
+            height: 200px;
+            background: linear-gradient(45deg, #f3f4f6, #e5e7eb); /* Placeholder gradient */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #9ca3af; /* Gray icon */
+            overflow: hidden; /* Ensure image fits */
+        }
+        .listing-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the area without distortion */
+        }
+        .listing-content {
+            padding: 1.5rem;
+        }
+        .listing-title {
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            font-size: 1.15rem;
+        }
+        .listing-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #059669; /* Green */
+            margin-bottom: 0.5rem;
+        }
+        .listing-location {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .contact-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        .contact-btn:hover {
+            background: #2563eb; /* Darker blue on hover */
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151; /* Darker gray */
+        }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e5e7eb; /* Light gray border */
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6; /* Blue focus border */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* Light blue shadow on focus */
+        }
+        .form-select {
+            background: white;
+            appearance: none; /* Remove default select arrow */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+            background-size: 1.5em 1.5em;
+        }
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Admin Dashboard */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+        .stat-label {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937; /* Dark gray */
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Utility classes */
+        .hidden {
+            display: none;
+        }
+        .notification {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #10b981; /* Green */
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transform: translateX(400px); /* Off-screen initially */
+            transition: transform 0.3s ease-out;
+            z-index: 1000;
+        }
+        .notification.show {
+            transform: translateX(0); /* Slide in */
+        }
+        .loading {
+            cursor: not-allowed !important;
+            opacity: 0.7 !important;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Hide main nav links on mobile */
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                margin-top: 1rem;
+            }
+            .nav-links.show {
+                display: flex; /* Show when mobile menu is toggled */
+            }
+            .nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .logo {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+            .lang-toggle {
+                width: 100%;
+                justify-content: center;
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .demo-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            .md\:grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            .md\:w-1\/4, .md\:w-3\/4 {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <i class="fas fa-handshake"></i>
+                    <span data-en="LionTrade" data-si="ලයන්ට්‍රේඩ්">LionTrade</span>
+                </div>
+                <button class="mobile-menu-toggle hidden" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#home" data-en="Home" data-si="මුල් පිටුව">Home</a></li>
+                    <li><a href="#features" data-en="Features" data-si="විශේෂාංග">Features</a></li>
+                    <li><a href="#demo" data-en="Demo" data-si="ප්‍රදර්ශනය">Demo</a></li>
+                    <li><a href="#contact" data-en="Contact" data-si="සම්බන්ධතා">Contact</a></li>
+                </ul>
+                <div class="lang-toggle">
+                    <button class="lang-btn active" onclick="switchLanguage('en', event)">English</button>
+                    <button class="lang-btn" onclick="switchLanguage('si', event)">සිංහල</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <h1 data-en="Connect Buyers & Sellers Across Sri Lanka" data-si="ශ්‍රී ලංකාව පුරා ගැනුම්කරුවන් සහ විකුණුම්කරුවන් සම්බන්ධ කරන්න">Connect Buyers & Sellers Across Sri Lanka</h1>
+            <p data-en="The easiest way for farmers, small businesses, and hotels to trade directly" data-si="ගොවීන්, කුඩා ව්‍යාපාර සහ හෝටල් සඳහා සෘජුව වෙළඳාම් කිරීමේ පහසුම ක්‍රමය">The easiest way for farmers, small businesses, and hotels to trade directly</p>
+            <div class="cta-buttons">
+                <a href="#demo" class="btn btn-primary" data-en="Try Demo" data-si="ප්‍රදර්ශනය උත්සාහ කරන්න">Try Demo</a>
+                <a href="#features" class="btn btn-secondary" data-en="Learn More" data-si="තව දැනගන්න">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title" data-en="Why Choose LionTrade?" data-si="ලයන්ට්‍රේඩ් තෝරා ගන්නේ ඇයි?">Why Choose LionTrade?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3 data-en="Mobile First" data-si="ජංගම පළමු">Mobile First</h3>
+                    <p data-en="Easy-to-use mobile app designed for everyone, including farmers" data-si="ගොවීන් ඇතුළු සියල්ලන් සඳහා නිර්මාණය කර ඇති භාවිතයට පහසු ජංගම යෙදුම">Easy-to-use mobile app designed for everyone, including farmers</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-language"></i></div>
+                    <h3 data-en="Bilingual Support" data-si="ද්විභාෂා සහාය">Bilingual Support</h3>
+                    <p data-en="Full support for Sinhala and English languages" data-si="සිංහල සහ ඉංග්‍රීසි භාෂා සඳහා සම්පූර්ණ සහාය">Full support for Sinhala and English languages</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bell"></i></div>
+                    <h3 data-en="Smart Notifications" data-si="බුද්ධිමත් දැනුම්දීම්">Smart Notifications</h3>
+                    <p data-en="Get notified when new products match your interests" data-si="ඔබගේ රුචිකත්වයන්ට ගැලපෙන නව නිෂ්පාදන ගැන දැනුම්දීම් ලබා ගන්න">Get notified when new products match your interests</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3 data-en="Secure Platform" data-si="ආරක්ෂිත වේදිකාව">Secure Platform</h3>
+                    <p data-en="Your data and transactions are protected with advanced security" data-si="ඔබේ දත්ත සහ ගනුදෙනු උසස් ආරක්ෂාවෙන් ආරක්ෂා කර ඇත">Your data and transactions are protected with advanced security</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-hotel"></i></div>
+                    <h3 data-en="Hotel Features" data-si="හෝටල් විශේෂාංග">Hotel Features</h3>
+                    <p data-en="Special features for hotels to find bulk suppliers easily" data-si="තොග සැපයුම්කරුවන් පහසුවෙන් සොයා ගැනීම සඳහා හෝටල් සඳහා විශේෂ විශේෂාංග">Special features for hotels to find bulk suppliers easily</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-seedling"></i></div>
+                    <h3 data-en="Farmer Friendly" data-si="ගොවී හිතකාමී">Farmer Friendly</h3>
+                    <p data-en="Simple interface designed specifically for farmers and rural users" data-si="ගොවීන් සහ ග්‍රාමීය පරිශීලකයින් සඳහා විශේෂයෙන් නිර්මාණය කර ඇති සරල අතුරුමුඛය">Simple interface designed specifically for farmers and rural users</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo-section" id="demo">
+        <div class="container">
+            <h2 class="section-title" data-en="Platform Demo" data-si="වේදිකා ප්‍රදර්ශනය">Platform Demo</h2>
+            
+            <div class="demo-tabs">
+                <button class="tab-btn active" onclick="showDemo('browse', event)" data-en="Browse Products" data-si="නිෂ්පාදන බ්‍රවුස් කරන්න">Browse Products</button>
+                <button class="tab-btn" onclick="showDemo('sell', event)" data-en="Sell Products" data-si="නිෂ්පාදන විකුණන්න">Sell Products</button>
+                <button class="tab-btn" onclick="showDemo('hotel', event)" data-en="Hotel Dashboard" data-si="හෝටල් උපකරණ පුවරුව">Hotel Dashboard</button>
+                <button class="tab-btn" onclick="showDemo('admin', event)" data-en="Admin Panel" data-si="පරිපාලක පැනලය">Admin Panel</button>
+            </div>
+
+            <div id="browse-demo" class="demo-content active">
+                <h3 data-en="Browse Available Products" data-si="ලබා ගත හැකි නිෂ්පාදන බ්‍රවුස් කරන්න">Browse Available Products</h3>
+                <div class="listings-grid">
+                    <div class="listing-card">
+                        <div class="listing-image"><i class="fas fa-pepper-hot"></i></div>
+                        <div class="listing-content">
+                            <div class="listing-title" data-en="Fresh Black Pepper" data-si="නැවුම් කළු මිරිස්">Fresh Black Pepper</div>
+                            <div class="listing-price">Rs. 2,500/kg</div>
+                            <div class="listing-location"><i class="fas fa-map-marker-alt"></i> Kandy</div>
+                            <button class="contact-btn" onclick="showNotification(currentLanguage === 'en' ? 'Contact request sent!' : 'සම්බන්ධතා ඉල්ලීම යවන ලදී!')" data-en="Contact Seller" data-si="විකුණුම්කරු සම්බන්ධ කරන්න">Contact Seller</button>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-image"><i class="fas fa-leaf"></i></div>
+                        <div class="listing-content">
+                            <div class="listing-title" data-en="Ceylon Tea Leaves" data-si="ලංකා තේ කොළ">Ceylon Tea Leaves</div>
+                            <div class="listing-price">Rs. 800/kg</div>
+                            <div class="listing-location"><i class="fas fa-map-marker-alt"></i> Nuwara Eliya</div>
+                            <button class="contact-btn" onclick="showNotification(currentLanguage === 'en' ? 'Contact request sent!' : 'සම්බන්ධතා ඉල්ලීම යවන ලදී!')" data-en="Contact Seller" data-si="විකුණුම්කරු සම්බන්ධ කරන්න">Contact Seller</button>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-image"><i class="fas fa-fish"></i></div>
+                        <div class="listing-content">
+                            <div class="listing-title" data-en="Fresh Fish Daily" data-si="දිනපතා නැවුම් මාළු">Fresh Fish Daily</div>
+                            <div class="listing-price">Rs. 1,200/kg</div>
+                            <div class="listing-location"><i class="fas fa-map-marker-alt"></i> Negombo</div>
+                            <button class="contact-btn" onclick="showNotification(currentLanguage === 'en' ? 'Contact request sent!' : 'සම්බන්ධතා ඉල්ලීම යවන ලදී!')" data-en="Contact Seller" data-si="විකුණුම්කරු සම්බන්ධ කරන්න">Contact Seller</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sell-demo" class="demo-content">
+                <h3 data-en="Add New Product Listing" data-si="නව නිෂ්පාදන ලැයිස්තුව එක් කරන්න">Add New Product Listing</h3>
+                <form onsubmit="handleSellForm(event)">
+                    <div class="form-group">
+                        <label data-en="Product Name" data-si="නිෂ්පාදන නම">Product Name</label>
+                        <input type="text" class="form-input" placeholder="e.g., Fresh Vegetables" data-en-placeholder="e.g., Fresh Vegetables" data-si-placeholder="උදා: නැවුම් එළවළු" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Category" data-si="කාණ්ඩය">Category</label>
+                        <select class="form-select" required>
+                            <option value="" data-en="Select Category" data-si="කාණ්ඩයක් තෝරන්න">Select Category</option>
+                            <option value="agriculture" data-en="Agriculture" data-si="කෘෂිකර්ම">Agriculture</option>
+                            <option value="seafood" data-en="Seafood" data-si="මුහුදු ආහාර">Seafood</option>
+                            <option value="electronics" data-en="Electronics" data-si="ඉලෙක්ට්‍රොනික්">Electronics</option>
+                            <option value="services" data-en="Services" data-si="සේවා">Services</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Price (Rs.)" data-si="මිල (රු.)">Price (Rs.)</label>
+                        <input type="number" class="form-input" placeholder="1000" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Quantity Available" data-si="ලබා ගත හැකි ප්‍රමාණය">Quantity Available</label>
+                        <input type="text" class="form-input" placeholder="100 kg" data-en-placeholder="100 kg" data-si-placeholder="කිලෝ 100" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Description" data-si="විස්තරය">Description</label>
+                        <textarea class="form-textarea" placeholder="Describe your product..." data-en-placeholder="Describe your product..." data-si-placeholder="ඔබේ නිෂ්පාදනය විස්තර කරන්න..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Location" data-si="ස්ථානය">Location</label>
+                        <input type="text" class="form-input" placeholder="City, District" data-en-placeholder="City, District" data-si-placeholder="නගරය, දිස්ත්‍රික්කය" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" data-en="Publish Listing (Rs. 50)" data-si="ලැයිස්තුව ප්‍රකාශ කරන්න (රු. 50)">Publish Listing (Rs. 50)</button>
+                </form>
+            </div>
+
+            <div id="hotel-demo" class="demo-content">
+                <h3 data-en="Hotel Buyer Dashboard" data-si="හෝටල් ගැනුම්කරු උපකරණ පුවරුව">Hotel Buyer Dashboard</h3>
+                <p data-en="Special features for hotel managers to find bulk suppliers" data-si="තොග සැපයුම්කරුවන් සොයා ගැනීම සඳහා හෝටල් කළමනාකරුවන් සඳහා විශේෂ විශේෂාංග">Special features for hotel managers to find bulk suppliers</p>
+                
+                <div class="form-group" style="margin-top: 2rem;">
+                    <label data-en="Weekly Requirements" data-si="සතිපතා අවශ්‍යතා">Weekly Requirements</label>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <input type="text" class="form-input" placeholder="Rice - 100kg" data-en-placeholder="Rice - 100kg" data-si-placeholder="හාල් - කිලෝ 100">
+                        <input type="text" class="form-input" placeholder="Vegetables - 50kg" data-en-placeholder="Vegetables - 50kg" data-si-placeholder="එළවළු - කිලෝ 50">
+                        <input type="text" class="form-input" placeholder="Fish - 30kg" data-en-placeholder="Fish - 30kg" data-si-placeholder="මාළු - කිලෝ 30">
+                        <input type="text" class="form-input" placeholder="Spices - 10kg" data-en-placeholder="Spices - 10kg" data-si-placeholder="කුළුබඩු - කිලෝ 10">
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="showNotification(currentLanguage === 'en' ? 'Weekly requirements updated!' : 'සතිපතා අවශ්‍යතා යාවත්කාලීන කරන ලදී!')" data-en="Update Requirements" data-si="අවශ්‍යතා යාවත්කාලීන කරන්න">Update Requirements</button>
+                </div>
+                
+                <h4 class="section-title" style="font-size: 1.8rem; margin-top: 3rem; margin-bottom: 2rem;" data-en="Quick Access to Bulk Suppliers" data-si="තොග සැපයුම්කරුවන්ට ඉක්මන් ප්‍රවේශය">Quick Access to Bulk Suppliers</h4>
+                <div class="listings-grid">
+                    <div class="listing-card">
+                        <div class="listing-image"><i class="fas fa-truck-loading"></i></div>
+                        <div class="listing-content">
+                            <div class="listing-title" data-en="Bulk Rice Supplier" data-si="තොග සහල් සැපයුම්කරු">Bulk Rice Supplier</div>
+                            <div class="listing-price">Rs. 200/kg (Min 500kg)</div>
+                            <div class="listing-location"><i class="fas fa-map-marker-alt"></i> Polonnaruwa</div>
+                            <button class="contact-btn" onclick="showNotification(currentLanguage === 'en' ? 'Contact request sent!' : 'සම්බන්ධතා ඉල්ලීම යවන ලදී!')" data-en="Contact Supplier" data-si="සැපයුම්කරු සම්බන්ධ කරන්න">Contact Supplier</button>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-image"><i class="fas fa-carrot"></i></div>
+                        <div class="listing-content">
+                            <div class="listing-title" data-en="Fresh Vegetable Farm" data-si="නැවුම් එළවළු ගොවිපල">Fresh Vegetable Farm</div>
+                            <div class="listing-price">Negotiable (Bulk)</div>
+                            <div class="listing-location"><i class="fas fa-map-marker-alt"></i> Nuwara Eliya</div>
+                            <button class="contact-btn" onclick="showNotification(currentLanguage === 'en' ? 'Contact request sent!' : 'සම්බන්ධතා ඉල්ලීම යවන ලදී!')" data-en="Contact Supplier" data-si="සැපයුම්කරු සම්බන්ධ කරන්න">Contact Supplier</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="section-title" style="font-size: 1.8rem; margin-top: 3rem; margin-bottom: 2rem;" data-en="Subscription Benefits" data-si="දායකත්ව ප්‍රතිලාභ">Subscription Benefits</h4>
+                <div class="stat-card" style="text-align: left;">
+                    <p data-en="You are currently on the Premium Hotel Buyer Plan." data-si="ඔබ දැනට Premium හෝටල් ගැනුම්කරු සැලැස්මේ සිටී.">You are currently on the Premium Hotel Buyer Plan.</p>
+                    <ul style="list-style: disc; margin-left: 1.5rem; margin-top: 0.5rem; color: #4b5563;">
+                        <li data-en="Priority notifications for new bulk listings." data-si="නව තොග ලැයිස්තු සඳහා ප්‍රමුඛතා දැනුම්දීම්.">Priority notifications for new bulk listings.</li>
+                        <li data-en="Access to exclusive hotel supplier network." data-si="සුවිශේෂී හෝටල් සැපයුම් ජාලයකට ප්‍රවේශය.">Access to exclusive hotel supplier network.</li>
+                        <li data-en="Dedicated customer support." data-si="වෙන් කර ඇති පාරිභෝගික සහාය.">Dedicated customer support.</li>
+                    </ul>
+                    <button class="btn btn-secondary" style="margin-top: 1.5rem;" onclick="showNotification(currentLanguage === 'en' ? 'Subscription details viewed.' : 'දායකත්ව විස්තර නරඹන ලදී.')" data-en="Manage Subscription" data-si="දායකත්වය කළමනාකරණය කරන්න">Manage Subscription</button>
+                </div>
+            </div>
+
+            <div id="admin-demo" class="demo-content">
+                <h3 data-en="Admin Panel Overview" data-si="පරිපාලක පැනල දළ විශ්ලේෂණය">Admin Panel Overview</h3>
+                
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">1250</div>
+                        <div class="stat-label" data-en="Total Users" data-si="මුළු පරිශීලකයින්">Total Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">340</div>
+                        <div class="stat-label" data-en="Active Listings" data-si="සක්‍රීය ලැයිස්තුගත කිරීම්">Active Listings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label" data-en="Pending Approvals" data-si="අනුමත කිරීමට ඇත">Pending Approvals</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Rs. 250K</div>
+                        <div class="stat-label" data-en="Monthly Revenue" data-si="මාසික ආදායම">Monthly Revenue</div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="showNotification(currentLanguage === 'en' ? 'Users managed successfully!' : 'පරිශීලකයින් සාර්ථකව කළමනාකරණය කරන ලදී!')" data-en="Manage Users" data-si="පරිශීලකයින් කළමනාකරණය කරන්න">Manage Users</button>
+                    <button class="btn btn-primary" onclick="showNotification(currentLanguage === 'en' ? 'Listings approved!' : 'ලැයිස්තු අනුමත කරන ලදී!')" data-en="Approve Listings" data-si="ලැයිස්තු අනුමත කරන්න">Approve Listings</button>
+                    <button class="btn btn-primary" onclick="showNotification(currentLanguage === 'en' ? 'Support tickets updated!' : 'සහාය ටිකට්පත් යාවත්කාලීන කරන ලදී!')" data-en="Customer Support" data-si="පාරිභෝගික සහාය">Customer Support</button>
+                    <button class="btn btn-primary" onclick="showNotification(currentLanguage === 'en' ? 'Analytics updated!' : 'විශ්ලේෂණ යාවත්කාලීන කරන ලදී!')" data-en="View Analytics" data-si="විශ්ලේෂණ බලන්න">View Analytics</button>
+                </div>
+                
+                <h4 class="section-title" style="font-size: 1.8rem; margin-top: 3rem; margin-bottom: 2rem;" data-en="Recent Activity Log" data-si="මෑත ක්‍රියාකාරකම් වාර්තාව">Recent Activity Log</h4>
+                <div style="background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 1.5rem;">
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="border-bottom: 1px solid #eee; padding: 0.75rem 0;" data-en="[2024-05-25 10:30] User 'Kamal P.' registered as Seller." data-si="[2024-05-25 10:30] 'කමල් පී.' පරිශීලකයා විකුණුම්කරුවෙකු ලෙස ලියාපදිංචි විය.">[2024-05-25 10:30] User 'Kamal P.' registered as Seller.</li>
+                        <li style="border-bottom: 1px solid #eee; padding: 0.75rem 0;" data-en="[2024-05-25 11:00] New listing 'Fresh Vegetables' submitted for approval." data-si="[2024-05-25 11:00] 'නැවුම් එළවළු' නව ලැයිස්තුව අනුමැතිය සඳහා ඉදිරිපත් කරන ලදී.">[2024-05-25 11:00] New listing 'Fresh Vegetables' submitted for approval.</li>
+                        <li style="border-bottom: 1px solid #eee; padding: 0.75rem 0;" data-en="[2024-05-25 14:15] Hotel 'Grand Plaza' updated weekly requirements." data-si="[2024-05-25 14:15] 'ග්‍රෑන්ඩ් ප්ලාසා' හෝටලය සතිපතා අවශ්‍යතා යාවත්කාලීන කරන ලදී.">[2024-05-25 14:15] Hotel 'Grand Plaza' updated weekly requirements.</li>
+                        <li style="padding: 0.75rem 0;" data-en="[2024-05-25 16:00] Admin 'Admin1' approved 'Mobile Phone Repair' listing." data-si="[2024-05-25 16:00] 'ඇඩ්මින්1' පරිපාලක 'ජංගම දුරකථන අලුත්වැඩියා' ලැයිස්තුව අනුමත කළේය.">[2024-05-25 16:00] Admin 'Admin1' approved 'Mobile Phone Repair' listing.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="contact">
+        <div class="container">
+            <h2 class="section-title" data-en="Contact Us" data-si="අප අමතන්න">Contact Us</h2>
+            <div class="max-w-md mx-auto demo-content active">
+                <p class="text-center mb-6" data-en="Have questions or feedback? Reach out to us!" data-si="ප්‍රශ්න හෝ අදහස් තිබේද? අප හා සම්බන්ධ වන්න!">Have questions or feedback? Reach out to us!</p>
+                <form onsubmit="showNotification(currentLanguage === 'en' ? 'Your message has been sent!' : 'ඔබගේ පණිවිඩය යවන ලදී!'); event.preventDefault();">
+                    <div class="form-group">
+                        <label for="contact-name" data-en="Your Name" data-si="ඔබගේ නම">Your Name</label>
+                        <input type="text" id="contact-name" class="form-input" placeholder="John Doe" data-en-placeholder="John Doe" data-si-placeholder="ජෝන් ඩෝ" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email" data-en="Your Email" data-si="ඔබගේ ඊමේල්">Your Email</label>
+                        <input type="email" id="contact-email" class="form-input" placeholder="your@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message" data-en="Message" data-si="පණිවිඩය">Message</label>
+                        <textarea id="contact-message" class="form-textarea" rows="5" placeholder="Your message..." data-en-placeholder="Your message..." data-si-placeholder="ඔබගේ පණිවිඩය..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full" data-en="Send Message" data-si="පණිවිඩය යවන්න">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p data-en="© 2024 LionTrade. Connecting Sri Lankan businesses since 2024." data-si="© 2024 ලයන්ට්‍රේඩ්. 2024 සිට ශ්‍රී ලාංකික ව්‍යාපාර සම්බන්ධ කරමින්.">© 2024 LionTrade. Connecting Sri Lankan businesses since 2024.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;" data-en="Demo Version - Built for GitHub Showcase" data-si="ප්‍රදර්ශන අනුවාදය - GitHub ප්‍රදර්ශනය සඳහා ගොඩනගා ඇත">Demo Version - Built for GitHub Showcase</p>
+        </div>
+    </footer>
+
+    <div id="notification" class="notification">
+        <span id="notification-text"></span>
+    </div>
+
+    <script>
+        // Global variable to track the current language
+        let currentLanguage = 'en';
+        
+        // Function to switch language and update all translatable elements
+        function switchLanguage(lang, event) {
+            currentLanguage = lang;
+            
+            // Update active button styling
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            if (event && event.target) { // Check if event is passed and target exists
+                event.target.classList.add('active');
+            } else { // Fallback for initial load if no event is available
+                document.querySelector(`.lang-btn[onclick*="switchLanguage('${lang}')"]`).classList.add('active');
+            }
+            
+            // Update all elements with data-en/data-si attributes
+            document.querySelectorAll('[data-en]').forEach(element => {
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    if (element.tagName === 'INPUT' && element.type !== 'submit') {
+                        // For input placeholders
+                        element.placeholder = text;
+                    } else {
+                        // For general text content
+                        element.textContent = text;
+                    }
+                }
+            });
+
+            // Update placeholders specifically for elements with data-en-placeholder/data-si-placeholder
+            document.querySelectorAll('[data-en-placeholder]').forEach(element => {
+                const placeholderText = element.getAttribute(`data-${lang}-placeholder`);
+                if (placeholderText) {
+                    element.placeholder = placeholderText;
+                }
+            });
+            
+            // Add/remove Sinhala font class based on language
+            if (lang === 'si') {
+                document.body.classList.add('sinhala-text');
+            } else {
+                document.body.classList.remove('sinhala-text');
+            }
+        }
+        
+        // Function to show specific demo content based on tab click
+        function showDemo(demoType, event) {
+            // Hide all demo contents
+            document.querySelectorAll('.demo-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected demo content
+            document.getElementById(demoType + '-demo').classList.add('active');
+            
+            // Add active class to clicked tab
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else { // Fallback for initial load
+                document.querySelector(`.tab-btn[onclick*="showDemo('${demoType}')"]`).classList.add('active');
+            }
+        }
+        
+        // Handle sell form submission (simulated)
+        function handleSellForm(event) {
+            event.preventDefault(); // Prevent actual form submission
+            showNotification(currentLanguage === 'en' ? 'Product listed successfully! Payment of Rs. 50 required.' : 'නිෂ්පාදනය සාර්ථකව ලැයිස්තුගත කරන ලදී! රු. 50 ගෙවීම අවශ්යය.');
+        }
+        
+        // Function to display a temporary notification message
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            // Hide notification after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent default anchor jump
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth', // Smooth scroll animation
+                        block: 'start' // Scroll to the top of the target element
+                    });
+                }
+            });
+        });
+        
+        // Simulate real-time notifications (random messages appearing)
+        function simulateNotifications() {
+            const messages = {
+                en: [
+                    'New pepper listing in Kandy!',
+                    'Hotel supplier needed in Colombo',
+                    'Fresh vegetables available now',
+                    'Special discount on tea leaves'
+                ],
+                si: [
+                    'කැන්ඩියේ නව මිරිස් ලැයිස්තුව!',
+                    'කොළඹ හෝටල් සැපයුම්කරු අවශ්යයි',
+                    'නැවුම් එළවළු දැන් ලබා ගත හැක',
+                    'තේ කොළ මත විශේෂ වට්ටම්'
+                ]
+            };
+            
+            setInterval(() => {
+                const randomMessage = messages[currentLanguage][Math.floor(Math.random() * messages[currentLanguage].length)];
+                showNotification(randomMessage);
+            }, 15000); // Show a new notification every 15 seconds
+        }
+        
+        // Add interactive animations for feature cards and listing cards
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observer for animating feature cards on scroll
+            const observerOptions = {
+                threshold: 0.1, // Trigger when 10% of the element is visible
+                rootMargin: '0px 0px -50px 0px' // Adjust root margin
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Apply initial styles and observe feature cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+            
+            // Add hover effects to listing cards (already handled by CSS transitions, but JS could enhance)
+            // The existing CSS handles this well, so no extra JS needed for basic hover transform/shadow.
+            
+            // Add loading states to buttons on click
+            document.querySelectorAll('.btn, .contact-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Prevent multiple clicks while loading
+                    if (this.classList.contains('loading')) return;
+                    
+                    const originalText = this.textContent;
+                    this.classList.add('loading');
+                    this.textContent = currentLanguage === 'en' ? 'Loading...' : 'පූරණය වෙමින්...';
+                    
+                    // Revert button state after a short delay
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                        this.textContent = originalText;
+                    }, 1500); // Simulate a 1.5 second loading time
+                });
+            });
+        });
+        
+        // Initial setup on window load
+        window.addEventListener('load', () => {
+            // Set default language to English and update content
+            switchLanguage('en'); 
+            // Show the first demo tab by default
+            showDemo('browse');
+            // Start simulating notifications after a delay
+            setTimeout(simulateNotifications, 5000);
+        });
+    </script>
+</body>
+</html>
